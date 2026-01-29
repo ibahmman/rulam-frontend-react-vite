@@ -3,7 +3,7 @@ import axiosInstance from "./axiosInstance";
 // ارسال کد OTP به شماره موبایل
 export const sendOTP = async (mobile_number) => {
   try {
-    const res = await axiosInstance.post("otp/send/", { mobile_number });
+    const res = await axiosInstance.post("chelseru/otp/send/", { mobile_number });
     return res.data; // { details: "The OTP code was sent correctly." }
   } catch (err) {
     console.error(err.response?.data || err.message);
@@ -13,7 +13,7 @@ export const sendOTP = async (mobile_number) => {
 
 export const loginWithOTP = async (mobile_number, code) => {
   try {
-    const res = await axiosInstance.post("authenticate/", {
+    const res = await axiosInstance.post("chelseru/authenticate/", {
       mobile_number,
       code,
       group: 0 // همیشه 0
