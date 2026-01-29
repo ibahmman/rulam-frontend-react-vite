@@ -14,7 +14,7 @@ export default function Login({ onLogin }) {
   // ارسال OTP به شماره موبایل
   const handleSendOTP = async () => {
     if (!mobile) {
-      alert("لطفاً شماره موبایل را وارد کنید");
+      alert("شماره موبایل را وارد نمایید");
       return;
     }
     try {
@@ -24,7 +24,7 @@ export default function Login({ onLogin }) {
       setOtpSent(true);
     } catch (err) {
       console.error(err);
-      alert("ارسال OTP موفق نبود");
+      alert("کد OTP فرستاده نشد");
     } finally {
       setLoading(false);
     }
@@ -33,7 +33,7 @@ export default function Login({ onLogin }) {
   // ورود با OTP
   const handleLogin = async () => {
     if (!code) {
-      alert("لطفاً کد OTP را وارد کنید");
+      alert("کد پیامک شده را وارد نمایید");
       return;
     }
     try {
@@ -63,7 +63,7 @@ export default function Login({ onLogin }) {
   return (
     <div className="flex flex-col gap-4 items-center justify-center min-h-screen bg-gradient-to-br from-pink-200 via-purple-200 to-indigo-200 p-4">
       <div className="bg-white/90 p-8 rounded-3xl shadow-xl w-full max-w-md flex flex-col gap-4">
-        <h1 className="text-2xl font-bold text-indigo-600 text-center mb-4">ورود به رولام</h1>
+        <h1 className="text-2xl font-bold text-indigo-600 text-center mb-4">ورود به روله‌م</h1>
 
         {!otpSent ? (
           <>
@@ -79,7 +79,7 @@ export default function Login({ onLogin }) {
               disabled={loading}
               className="btn rounded-2xl bg-indigo-500 text-white p-3 font-semibold hover:bg-indigo-600 transition"
             >
-              {loading ? "در حال ارسال..." : "ارسال کد"}
+              {loading ? "در حال فرستادن..." : "فرستادن کد"}
             </button>
           </>
         ) : (

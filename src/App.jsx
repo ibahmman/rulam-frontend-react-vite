@@ -7,6 +7,7 @@ import AppLayout from "./layouts/AppLayout";
 import ChatListPage from "./pages/ChatListPage";
 
 import { useParams } from "react-router-dom";
+import InternalLayout from "./layouts/InternalLayout";
 
 export default function App() {
   return (
@@ -23,9 +24,18 @@ export default function App() {
           }
         >
           <Route index element={<ChatListPage />} />
+          
+        </Route>
+        
+        <Route
+          element={
+            <ProtectedRoute>
+              <InternalLayout />
+            </ProtectedRoute>
+          }
+        >
           <Route path="chat/:chatRoomId" element={<ChatRoomPageWrapper />} />
         </Route>
-
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>
