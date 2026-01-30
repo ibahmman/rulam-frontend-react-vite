@@ -32,3 +32,12 @@ export const sendMessage = async (roomId, message) => {
     throw err;
   }
 };
+
+
+
+export const fetchMessages = async (chatRoomId) => {
+  const res = await axiosInstance.get(
+    `chelseru/chat/messages/?cha_room=${chatRoomId}`
+  );
+  return res.data;
+};
