@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef, useMemo } from "react";
-import { Send } from "lucide-react";
+import { Laugh, Paperclip, Send } from "lucide-react";
 import { fetchMessages } from "../services/chatService";
 import { jwtDecode } from "jwt-decode";
 
@@ -158,19 +158,33 @@ export default function ChatRoom({ chatRoomId, token }) {
 
       {/* فرم ارسال */}
       <div className="flex gap-2">
+        <button
+          onClick={sendMessage}
+          className="rounded-2xl p-3  text-pink-400 transition flex items-center justify-center"
+        >
+          <Laugh size={20} />
+        </button>
+
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && sendMessage()}
           placeholder="پیام خود را بنویسید…"
-          className="flex-1 rounded-2xl p-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          className="flex-1 rounded-2xl p-3 border border-purple-100 bg-purple-100 focus:outline-none focus:ring-2 focus:ring-indigo-400"
         />
 
         <button
           onClick={sendMessage}
-          className="rounded-2xl p-3 bg-indigo-500 text-white hover:bg-indigo-600 transition flex items-center justify-center"
+          className="rounded-2xl p-3  text-pink-400 transition flex items-center justify-center"
         >
-          <Send size={18} />
+          <Paperclip size={20} />
+        </button>
+
+        <button
+          onClick={sendMessage}
+          className="rounded-2xl p-3  text-pink-500 transition flex items-center justify-center"
+        >
+          <Send size={20} />
         </button>
       </div>
     </div>

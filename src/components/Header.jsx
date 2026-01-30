@@ -1,4 +1,4 @@
-import { Home, MessageCircle, HeartPulse, LayoutGrid } from "lucide-react";
+import { Home, MessageCircle, HeartPulse, LayoutGrid, Search } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 export default function Header() {
@@ -46,7 +46,11 @@ export default function Header() {
       </div>
 
       <nav className="flex gap-8">
-        
+        <Search
+          onClick={() => navigate("/")}
+          className={`cursor-pointer ${isActive("/")}`}
+        />
+
         <HeartPulse
           onClick={() => alert("بعداً پیاده‌سازی میشه")}
           className="cursor-pointer text-gray-600"

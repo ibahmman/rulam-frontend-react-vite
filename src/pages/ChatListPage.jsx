@@ -1,12 +1,29 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../api/axiosInstance";
 import InternalHeader from "../components/InternalHeader";
+import { jwtDecode } from "jwt-decode";
+
 
 export default function ChatListPage() {
   const [chats, setChats] = useState([]);
   const navigate = useNavigate();
-  const currentUserId = 2; // بعداً از توکن بگیر
+
+  
+  /* ===============================
+      تشخیص current user از JWT
+  =============================== */
+  const token = localStorage.getItem("access_token");
+  const currentUserId = useMemo(() => {
+    if (!token) return null;
+    try {
+      const decoded = jwtDecode(token);
+      return decoded.user_id || decoded.id || null;
+    } catch {
+      return null;
+    }
+  }, [token]);
+
 
   useEffect(() => {
     axiosInstance
@@ -14,6 +31,7 @@ export default function ChatListPage() {
       .then((res) => setChats(res.data))
       .catch((err) => console.error(err));
   }, []);
+
 
   const getPartner = (chat) =>
     chat.users.find((u) => u.id !== currentUserId) || { username: "ناشناس" };
@@ -24,7 +42,6 @@ export default function ChatListPage() {
       <div className="p-4 space-y-4">
         {chats.map((chat) => {
           const partner = getPartner(chat);
-
           return (
             <div
               key={chat.id}
@@ -37,7 +54,7 @@ export default function ChatListPage() {
                 </div>
 
                 <div>
-                  <div className="font-semibold">{partner.username}</div>
+                  <div className="font-semibold">{chat.name || partner.username}</div>
                   <div className="text-sm text-gray-500 truncate max-w-xs">
                     {chat.descriptions || "پیامی وجود ندارد"}
                   </div>
