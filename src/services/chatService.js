@@ -28,7 +28,7 @@ export const sendMessage = async (roomId, message) => {
     const res = await axiosInstance.post(`chelseru/chat/chatrooms/${roomId}/send/`, { message });
     return res.data;
   } catch (err) {
-    console.error("خطا در ارسال پیام:", err.response?.data || err.message);
+    console.error("خطا در فرستادن پیام:", err.response?.data || err.message);
     throw err;
   }
 };
@@ -37,7 +37,8 @@ export const sendMessage = async (roomId, message) => {
 
 export const fetchMessages = async (chatRoomId) => {
   const res = await axiosInstance.get(
-    `chelseru/chat/messages/?cha_room=${chatRoomId}`
+    `chelseru/chat/messages/?chat_room=${chatRoomId}`
   );
-  return res.data;
+  console.log(res);
+  return res.data.results;
 };

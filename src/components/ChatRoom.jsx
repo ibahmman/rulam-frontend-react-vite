@@ -117,6 +117,8 @@ export default function ChatRoom({ chatRoomId, token }) {
     setInput("");
   };
 
+
+
   /* ===============================
      UI
   =============================== */
