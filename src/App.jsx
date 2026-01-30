@@ -5,6 +5,7 @@ import ChatRoomPage from "./pages/ChatRoomPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AppLayout from "./layouts/AppLayout";
 import ChatListPage from "./pages/ChatListPage";
+import HomePage from "./pages/HomePage";
 
 import { useParams } from "react-router-dom";
 import InternalLayout from "./layouts/InternalLayout";
@@ -24,6 +25,7 @@ export default function App() {
           }
         >
           <Route index element={<ChatListPage />} />
+          <Route path="home" element={<HomePage />} />
           
         </Route>
         
