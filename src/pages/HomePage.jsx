@@ -31,36 +31,58 @@ function HomePage() {
   }, []);
 
   return (
-    <div className="p-4 bg-gradient-to-b from-pink-50 to-white min-h-screen">
-      <h1 className="text-2xl font-bold text-pink-600 mb-4">
-        داشبورد پریودی
-      </h1>
+    <div className="p-4 min-h-screen">
+      <div className="flex justify-center my-8">
+        <div className="relative w-56 h-56 rounded-full bg-gradient-to-br from-pink-100 to-purple-100 flex items-center justify-center shadow-lg">
 
-      <div className="bg-white shadow-md rounded-2xl p-4 mb-6">
-        <h2 className="text-lg font-semibold text-purple-600 mb-2">
-          چرخه شما
-        </h2>
-        <div className="w-full h-40 bg-pink-100 rounded-xl flex items-center justify-center">
-          <span className="text-pink-500">
-            روز {cycleInfo?.cycleDay ?? "-"} چرخه
-          </span>
+          {/* عدد روز فعلی */}
+          <div className="text-center">
+            <div className="text-5xl font-bold text-pink-500">
+              {cycleInfo?.cycleDay ?? "-"}
+            </div>
+            <div className="text-sm text-gray-500 mt-1">
+              روز چرخه
+            </div>
+          </div>
+
+          {/* نقاط روزها */}
+          {cycleInfo &&
+            Array.from({ length: cycleInfo.cycleLength }).map((_, i) => {
+              const day = i + 1;
+              const angle = (360 / cycleInfo.cycleLength) * i;
+              const isToday = day === cycleInfo.cycleDay;
+
+              return (
+                <span
+                  key={day}
+                  className={`
+                    absolute w-3 h-3 rounded-full
+                    ${isToday ? "bg-pink-500 scale-125" : day < cycleInfo.cycleDay ? "bg-pink-300" : "bg-gray-300"}
+                  `}
+                  style={{
+                    transform: `
+                      rotate(${angle}deg)
+                      translate(100px)
+                    `,
+                  }}
+                />
+              );
+            })}
         </div>
       </div>
 
-      <div className="bg-white shadow-md rounded-2xl p-4">
+      <div className="bg-white rounded-2xl shadow p-4">
         <h2 className="text-lg font-semibold text-purple-600 mb-2">
           وضعیت فعلی
         </h2>
 
         {cycleInfo ? (
-          <ul className="list-disc list-inside text-gray-700">
-            <li>فاز: {cycleInfo.phase}</li>
-            <li>نکته امروز: {cycleInfo.advice}</li>
-          </ul>
+          <div className="space-y-2 text-gray-700">
+            <p>🌙 <span className="font-medium">فاز:</span> {cycleInfo.phase}</p>
+            <p>💡 <span className="font-medium">نکته امروز:</span> {cycleInfo.advice}</p>
+          </div>
         ) : (
-          <p className="text-gray-400">
-            تاریخ آخرین پریود ثبت نشده 🌸
-          </p>
+          <p className="text-gray-400">تاریخ آخرین پریود ثبت نشده 🌸</p>
         )}
       </div>
     </div>
