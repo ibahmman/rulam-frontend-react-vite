@@ -1,14 +1,21 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useParams } from "react-router-dom";
 
-import LoginPage from "./pages/LoginPage";
-import ChatRoomPage from "./pages/ChatRoomPage";
 import ProtectedRoute from "./components/ProtectedRoute";
+
+import InternalLayout from "./layouts/InternalLayout";
 import AppLayout from "./layouts/AppLayout";
+import SearchLayout from "./layouts/SearchLayout";
+
 import ChatListPage from "./pages/ChatListPage";
 import HomePage from "./pages/HomePage";
+import SearchPage from "./pages/SearchPage";
+import RelPlayPage from "./pages/RelPlayPage";
+import MenuPage from "./pages/MenuPage";
+import LoginPage from "./pages/LoginPage";
+import ChatRoomPage from "./pages/ChatRoomPage";
 
-import { useParams } from "react-router-dom";
-import InternalLayout from "./layouts/InternalLayout";
+
+
 
 export default function App() {
   return (
@@ -26,9 +33,23 @@ export default function App() {
         >
           <Route index element={<ChatListPage />} />
           <Route path="home" element={<HomePage />} />
+          <Route path="relplay" element={<RelPlayPage />} />
+          <Route path="menu" element={<MenuPage />} />
           
         </Route>
-        
+
+
+        <Route 
+          path="search/*"
+          element={
+            <ProtectedRoute>
+              <SearchLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route index element={<SearchPage />} />
+        </Route>
+
         <Route
           element={
             <ProtectedRoute>
@@ -37,6 +58,7 @@ export default function App() {
           }
         >
           <Route path="chat/:chatRoomId" element={<ChatRoomPageWrapper />} />
+          
         </Route>
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>

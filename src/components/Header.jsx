@@ -8,32 +8,13 @@ export default function Header() {
   const isActive = (path) =>
     location.pathname === path ? "text-indigo-600" : "text-gray-600";
 
-  const handleLogout = () => {
-    const confirmed = window.confirm('آیا تمایل به بیرون رفتن از حساب کاربری دارید');
-
-    if (!confirmed) return;
-
-    // پاک‌سازی کامل سشن
-    localStorage.clear();
-    sessionStorage.clear();
-
-    // اگر کوکی auth داشتی (اختیاری)
-    document.cookie
-      .split(';')
-      .forEach(c => {
-        document.cookie = c
-          .replace(/^ +/, '')
-          .replace(/=.*/, `=;expires=${new Date(0).toUTCString()};path=/`);
-      });
-
-    navigate('/login', { replace: true });
-  };
+  
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 h-14 bg-white shadow flex items-center justify-between px-6">
       <div 
-        onClick={handleLogout}
-        className={`cursor-pointer ${isActive("/")}`}
+        onClick={() => navigate("/menu/")}
+        className={`cursor-pointer ${isActive("/menu/")}`}
         >
         <LayoutGrid />
       </div>
@@ -47,13 +28,13 @@ export default function Header() {
 
       <nav className="flex gap-8">
         <Search
-          onClick={() => navigate("/")}
-          className={`cursor-pointer ${isActive("/")}`}
+          onClick={() => navigate("/search/")}
+          className={`cursor-pointer ${isActive("/search/")}`}
         />
 
         <HeartPulse
-          onClick={() => alert("بعداً پیاده‌سازی میشه")}
-          className="cursor-pointer text-gray-600"
+          onClick={() => navigate("/relplay/")}
+          className={`cursor-pointer ${isActive("/relplay/")}`} 
         />
 
         <MessageCircle
@@ -62,8 +43,8 @@ export default function Header() {
         />
         
         <Home
-          onClick={() => navigate("/")}
-          className={`cursor-pointer ${isActive("/")}`}
+          onClick={() => navigate("/home/")}
+          className={`cursor-pointer ${isActive("/home/")}`}
         />
 
       </nav>

@@ -1,4 +1,13 @@
-import axiosInstance from "../api/axiosInstance"; // همان axiosInstance که JWT و baseURL داره
+// src/services/chatService.js
+import axiosInstance from "../api/axiosInstance";
+
+export const createOrGetChatRoom = (userId) => {
+  return axiosInstance.post("chelseru/chat/chatrooms/", {
+    user_id: userId,
+  });
+};
+
+
 
 // گرفتن لیست چت‌روم‌ها
 export const getChatRooms = async () => {
@@ -39,6 +48,5 @@ export const fetchMessages = async (chatRoomId) => {
   const res = await axiosInstance.get(
     `chelseru/chat/messages/?chat_room=${chatRoomId}`
   );
-  console.log(res);
   return res.data.results;
 };
